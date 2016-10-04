@@ -21,47 +21,73 @@ for (var i = 0; i < randomCoffee.length; i++) {
   }
 }
 
-currentWordHTML = currentCoffee.join(" ");
+var currentWordHTML = currentCoffee.join(" ");
 
 document.onkeyup = function(event) {
-	var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
 
-  if (randomCoffee.indexOf(userGuess) >= 0) {
-    for (var i = 0; i < randomCoffee.length; i++) {
-      if (randomCoffee[i] === userGuess) {
-        currentCoffee[i] = userGuess;
+    if (guessesRemaining > 0) {
+
+  	var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+
+ 
+
+    if (randomCoffee.indexOf(userGuess) >= 0) {
+      for (var i = 0; i < randomCoffee.length; i++) {
+        if (randomCoffee[i] === userGuess) {
+          currentCoffee[i] = userGuess;
+        }
       }
+      currentWordHTML = currentCoffee.join(" ");
+      if (currentWordHTML == randomCoffee[i]) {
+        wins++;
+      }
+      document.querySelector("#currentCoffee").innerHTML = currentWordHTML.toUpperCase();
     }
-    currentWordHTML = currentCoffee.join(" ");
-    document.querySelector("#currentCoffee").innerHTML = currentWordHTML.toUpperCase();
-  }
-  else if (wrongLetters.indexOf(userGuess) >= 0) {
-    alert("Already Guessed");
-  }
-  else {
+    else if (wrongLetters.indexOf(userGuess) >= 0) {
+      alert("Already Guessed");
+    }
+    else {
+      wrongLetters.push(userGuess);
+      printGuessedLetters();
+         printGuesses(guessesRemaining--);
 
-    document.querySelector("#numGuessesLeft").innerHTML = guessesRemaining;
-    guessesRemaining--;
-
-    wrongLetters.push(userGuess);
-    incorrectLettersHTML = wrongLetters.join(" ");
-    document.querySelector("#incorrectLetters").innerHTML = incorrectLettersHTML.toUpperCase();
+    }
+  } else if (guessesRemaining <= 0) {
+  alert("Game Over!");
   }
+
 };
 
-// function to pring wins and current coffee
+// for (var i = 0; i < randomCoffee.length; i++) {
+//   if (randomCoffee[i] === " ") {
+//     currentCoffee.push("-");
+//   } else {
+//     currentCoffee.push("_");
+//   }
+// }
+
+// function to print wins and current coffee
 function printWins() {
   var html = "<p>Wins: " + wins + "</p>";
 
   document.querySelector("#wins").innerHTML = html;
 }
 
-// function to pring guesses remaining
+// function to print guesses remaining
 function printGuesses() {
   var guesses = "<p> Remaining Guesses: " + guessesRemaining + "</p>";
 
   document.querySelector("#guesses").innerHTML = guesses;
 }
 
+// function to print letters already guessed
+function printGuessedLetters() {
+  var incorrectLettersHTML = "<p>Letters already guessed: </p>" + wrongLetters.join(" ");
+  document.querySelector("#incorrectLetters").innerHTML = incorrectLettersHTML;
+}
+
+
+
 printWins();
 printGuesses();
+printGuessedLetters();
