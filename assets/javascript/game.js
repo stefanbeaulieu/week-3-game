@@ -51,8 +51,8 @@ document.onkeyup = function(event) {
         		wins++;
         		randomCoffee = Math.floor(Math.random() * coffeeBlends.length);
         		randomCoffee = coffeeBlends[randomCoffee];
-        		guesses = 12;
-            wrongLetters = [];
+        		guessesRemaining = 12;
+            wrongLetters = " ";
             currentCoffee = [];
 
         		for (var i = 0; i < randomCoffee.length; i++) {
@@ -63,16 +63,16 @@ document.onkeyup = function(event) {
         				currentCoffee.push("_");
         			}
         		}
+            guessesRemaining = 12;
             alert("You Win!");
         		console.log(randomCoffee);
         		console.log(currentCoffee);
-
-        		document.querySelector("#wins").innerHTML = wins;
+        		printWins();
 
         		currentWordHTML = currentCoffee.join(" ");
         		document.querySelector("#currentCoffee").innerHTML = currentWordHTML;
-        		document.querySelector("#numGuessesRemaining").innerHTML = guesses;
-        		document.querySelector("#lettersAlreadyGuessed").innerHTML = wrongLetters;
+        		printGuesses();
+        		printGuessedLetters();
         }
     } else if (guessesRemaining <= 0) {
         alert("Game Over!");
@@ -80,10 +80,6 @@ document.onkeyup = function(event) {
 
     }
 };
-
-function uniqueLettersInWord() {
-    return currentCoffee.length;
-}
 
 // function to print wins and current coffee
 function printWins() {
