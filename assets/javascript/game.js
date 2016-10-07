@@ -36,8 +36,7 @@ document.onkeyup = function(event) {
                     currentCoffee[j] = userGuess;
                 }
             }
-            var currentWordHTML = currentCoffee.join(" ");
-            document.querySelector("#currentCoffee").innerHTML = currentWordHTML.toUpperCase();
+            currentSelected();
         } else if (wrongLetters.indexOf(userGuess) >= 0) {
             alert("Already Guessed");
         } else {
@@ -49,11 +48,13 @@ document.onkeyup = function(event) {
         if (currentCoffee.indexOf("_") < 0) {
             console.log("You win!");
         		wins++;
+            alert("You Win! The correct word was " + randomCoffee + ".");
         		randomCoffee = Math.floor(Math.random() * coffeeBlends.length);
         		randomCoffee = coffeeBlends[randomCoffee];
         		guessesRemaining = 12;
-            wrongLetters = " ";
+            wrongLetters = [];
             currentCoffee = [];
+            currentSelected();
 
         		for (var i = 0; i < randomCoffee.length; i++) {
         			if (randomCoffee[i] === " ") {
@@ -63,16 +64,12 @@ document.onkeyup = function(event) {
         				currentCoffee.push("_");
         			}
         		}
-            guessesRemaining = 12;
-            alert("You Win!");
+
         		console.log(randomCoffee);
         		console.log(currentCoffee);
-        		printWins();
-
-        		currentWordHTML = currentCoffee.join(" ");
-        		document.querySelector("#currentCoffee").innerHTML = currentWordHTML;
-        		printGuesses();
-        		printGuessedLetters();
+            printWins();
+            printGuesses();
+            printGuessedLetters();
         }
     } else if (guessesRemaining <= 0) {
         alert("Game Over!");
@@ -88,6 +85,11 @@ function printWins() {
     document.querySelector("#wins").innerHTML = html;
 }
 
+function currentSelected() {
+  var currentWordHTML = "<p>The current coffee brew is " + "<p>" + currentCoffee.join(" ") + "</p>" + "</p>";
+  document.querySelector("#currentCoffee").innerHTML = currentWordHTML;
+}
+
 // function to print guesses remaining
 function printGuesses() {
     var guesses = "<p> Remaining Guesses: " + guessesRemaining + "</p>";
@@ -101,8 +103,21 @@ function printGuessedLetters() {
     document.querySelector("#incorrectLetters").innerHTML = incorrectLettersHTML;
 }
 
+// function to print letters already guessed
+function replaceLettersWithBlanks() {
+	for (var i = 0; i < randomCoffee.length; i++) {
+		if (randomWord[i]) {
+			currentCoffee.push(" ");
+		}
+		else  {
+			currentCoffee.push("_");
+		}
+
+	}
+}
 
 
 printWins();
 printGuesses();
 printGuessedLetters();
+currentSelected();
