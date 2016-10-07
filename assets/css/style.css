@@ -1,7 +1,18 @@
 .navbar {
-  background: #E39543;
+  background: tan;
 }
 
-.bgcolor {
-  background: #DAD2AD;
+body {
+  background: url(../images/coffee-bag.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='assets/images/coffee-bag.jpg', sizingMethod='scale');
+  -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='assets/images/coffee-bag.jpg', sizingMethod='scale');
+}
+
+.jumbotron {
+  height: 400px;
+  background: none;
 }

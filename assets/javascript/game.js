@@ -54,7 +54,7 @@ document.onkeyup = function(event) {
         		guessesRemaining = 12;
             wrongLetters = [];
             currentCoffee = [];
-            currentSelected();
+
 
         		for (var i = 0; i < randomCoffee.length; i++) {
         			if (randomCoffee[i] === " ") {
@@ -67,9 +67,11 @@ document.onkeyup = function(event) {
 
         		console.log(randomCoffee);
         		console.log(currentCoffee);
+            currentSelected();
             printWins();
             printGuesses();
             printGuessedLetters();
+            replaceLettersWithBlanks();
         }
     } else if (guessesRemaining <= 0) {
         alert("Game Over!");
